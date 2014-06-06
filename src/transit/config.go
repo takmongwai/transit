@@ -5,9 +5,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
-	"log"
+	"net/http"
 	"sort"
+	"strings"
 )
 
 //转换器数据结构
@@ -62,16 +64,16 @@ func (v sortByPriority) Swap(i, j int)      { v[i], v[j] = v[j], v[i] }
 func (v sortByPriority) Less(i, j int) bool { return v[i].Priority < v[j].Priority }
 
 //读取配置文件
-func loadConfigFile(filename string) (cf *ConfigFile, err error) {
+func LoadConfigFile(filename string) (cf *ConfigFile, err error) {
 	var b []byte
 	if b, err = ioutil.ReadFile(filename); err != nil {
-		log.Printf("read config file error -- %v", err)
+		logger.Printf("read config file error -- %v", err)
 		return
 	}
 
 	cf = &ConfigFile{}
 	if err = json.Unmarshal(b, cf); err != nil {
-		log.Printf("parse config file error -- %v", err)
+		logger.Printf("parse config file error -- %v", err)
 		return
 	}
 	sort.Sort(sortByPriority(cf.Config))
@@ -79,10 +81,16 @@ func loadConfigFile(filename string) (cf *ConfigFile, err error) {
 	return
 }
 
-func main() {
-	cfg, err := loadConfigFile("/Users/weidewang/ownCloud/Workspace/go/transit/etc/dev_config.json")
-	if err != nil {
-		log.Println(err)
+//根据请求查找合适的配置
+func (cf ConfigFile) FindConfig(req *http.Request) (cfg *Config, err error) {
+
+	return
+}
+
+func ProcessRequest(req *http.Request) (err error) {
+	if req.Method == "POST" && !strings.Contains(req.Header.Get("Content-Type"), "application/x-www-form-urlencoded") {
+		err = fmt.Errorf("not support Content-Type %s of POST", req.Header.Get("Content-Type"))
+		return
 	}
-	log.Println(cfg)
+	return
 }

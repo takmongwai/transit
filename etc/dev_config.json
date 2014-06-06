@@ -1,54 +1,54 @@
 {
-    "config": [
-        {
-            "extends": [
-                "general_host_80",
-                "general_target_001"
-            ],
-            "id": "g01",
-            "priority": -100,
-            "source": {
-                "converter": {
-                    "method": {
-                        "post": "get",
-                        "put": "get"
-                    },
-                    "params": {
-                        "name": {
-                            "aa": "AA",
-                            "bb": "BS"
-                        }
-                    }
-                },
-                "params": [
-                    "a=10",
-                    "c=100",
-                    "^aa=\\d"
-                ],
-                "path": [
-                    "/path/subpath1",
-                    "/path/subpath2",
-                    "^/regex_path/$"
-                ],
-                "url": [
-                    "http://host.domain.com:80"
-                ]
-            },
-            "target": {
-                "path": "/target_path/",
-                "url": "http://host:8080"
-            }
-        }
-    ],
-    "default": {
-
+ "config" : [
+  {
+   "extends" : [
+"general_host_80",
+"general_target_001"
+   ],
+   "id" : "g01",
+   "priority" : -100,
+   "source" :    {
+    "converter" :     {
+     "method" :      {
+      "post" : "get",
+      "put" : "get"
+     },
+     "params" :      {
+      "name" :       {
+       "aa" : "AA",
+       "bb" : "BS"
+      }
+     }
     },
-    "define": [
-        
+    "params" : [
+"a=10",
+"c=100",
+"^aa=\\d"
     ],
-    "listen": {
-        "host": "0.0.0.0",
-        "port": 9000,
-        "unix": "/tmp/transit.socket"
-    }
+    "path" : [
+"/path/subpath1",
+"/path/subpath2",
+"^/regex_path/$"
+    ],
+    "url" : [
+"http://host.domain.com:80"
+    ]
+   },
+   "target" :    {
+    "path" : "/target_path/",
+    "url" : "http://host:8080"
+   }
+  }
+ ],
+ "default" :  {
+  
+ },
+ "define" : [
+
+ ],
+ "listen" :  {
+  "host" : "0.0.0.0",
+  "port" : 9000,
+  "unix" : "/tmp/transit.socket"
+ }
 }
