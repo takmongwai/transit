@@ -45,3 +45,10 @@ type ConfigFile struct {
   Define []*Config
   Listen *Listen
 }
+
+
+//配置文件
+func (cf ConfigFile) loadFile(path string){
+  
+}
+
